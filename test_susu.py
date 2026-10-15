@@ -15,6 +15,17 @@ class TestSusuGroup(unittest.TestCase):
 
     def test_group_starts_at_week_one(self):
         self.assertEqual(self.group.current_week, 1)
+        
+    def test_invalid_weekly_contribution_is_rejected(self):
+        with self.assertRaises(ValueError):
+            SusuGroup("0")
+
+        with self.assertRaises(ValueError):
+            SusuGroup("-10")
+
+    def test_empty_member_name_is_rejected(self):
+        with self.assertRaises(ValueError):
+            self.group.add_member("   ")
 
     def test_add_duplicate_member_is_rejected(self):
         with self.assertRaises(ValueError):
